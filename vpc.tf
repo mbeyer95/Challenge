@@ -92,9 +92,10 @@ resource "aws_route_table_association" "public_subnet_association2" {
     depends_on = [aws_route_table.devVPC_public_route2, aws_subnet.devVPC_public_subnet2]
 }
 
+/*
 data "template_file" "init" {
   template = "${file("${path.module}/init.tpl")}"
-  /*vars = {
+ vars = {
     consul_address = "${aws_instance.Wordpress.private_ip}"
-  }*/
 }
+*/
