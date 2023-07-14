@@ -32,3 +32,4 @@ resource "aws_security_group_rule" "devVPC_http_ingress_access"{
     to_port= 22
     type = "ingress"
     cidr_blocks = [var.cidr_blocks]
+}
