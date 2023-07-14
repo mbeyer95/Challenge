@@ -94,7 +94,7 @@ resource "aws_route_table_association" "public_subnet_association2" {
 
 data "template_file" "init" {
   template = "${file("${path.module}/init.tpl")}"
-  vars = {
-    consul_address = "${aws_instance.consul.private_ip}"
-  }
+  /*vars = {
+    consul_address = "${aws_instance.Wordpress.private_ip}"
+  }*/
 }
