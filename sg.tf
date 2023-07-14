@@ -23,3 +23,12 @@ resource "aws_security_group_rule" "devVPC_http8080_ingress_access"{
     type = "ingress"
     cidr_blocks = [var.cidr_blocks]
 }
+
+# SSH Port 22(Inbound)
+resource "aws_security_group_rule" "devVPC_http_ingress_access"{
+    from_port = 22
+    protocol = "tcp"
+    security_group_id = aws_security_group.devVPC_sg_allow_http.id
+    to_port= 22
+    type = "ingress"
+    cidr_blocks = [var.cidr_blocks]
