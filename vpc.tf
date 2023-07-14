@@ -91,3 +91,13 @@ resource "aws_route_table_association" "public_subnet_association2" {
     subnet_id = aws_subnet.devVPC_public_subnet2.id
     depends_on = [aws_route_table.devVPC_public_route2, aws_subnet.devVPC_public_subnet2]
 }
+
+
+
+
+data "template_file" "init" {
+  template = "${file("${path.module}/init.tpl")}"
+  vars = {
+    consul_address = "${aws_instance.consul.private_ip}"
+  }
+}
