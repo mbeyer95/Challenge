@@ -1,4 +1,4 @@
-resource "aws_instance" "Wordpress-instance"{
+resource "aws_instance" "Wordpress"{
     ami = "ami-0ae49954dfb447966"
     instance_type = "t3.micro"
     key_name = "vockey"
@@ -6,7 +6,7 @@ resource "aws_instance" "Wordpress-instance"{
     subnet_id = aws_subnet.devVPC_public_subnet1.id
     user_data = data.template_file.init.id
     tags = {
-        Name = "Wordpress-instance"
+        Name = "Wordpress"
     }
 
 provisioner "local-exec" {
