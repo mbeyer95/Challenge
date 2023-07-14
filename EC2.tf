@@ -7,12 +7,21 @@ resource "aws_instance" "Wordpress-instance"{
     tags = {
         Name = "Wordpress-instance"
     }
-data "template_file" "init" {
+}
+
+/* data "template_file" "init" {
   template = "${file("${path.module}/init.tpl")}"
   vars = {
     consul_address = "${aws_instance.consul.private_ip}"
   }
 }
+*/
+
+provisioner "local-exec" {
+  command = "echo Instance Type=${self.instance_type},Instance ID=${self.id},Public DNS=${self.public_dns},AMI ID=${self.ami} >> allinstancedetails"
+}
+
+
 #user_data = data.template_file.init.rendered
 /*     #install all neccecary services for worpress
     provisioner "remote-exec"{
@@ -29,7 +38,3 @@ data "template_file" "init" {
         ]
         on_failure = continue
     }*/
-    provisioner "local-exec"{
-    command = "echo Instance Type=${self.instance_type},Instance ID=${self.id},Public DNS=${self.public_dns},AMI ID=${self.ami} >> allinstancedetails"
-  }
-}
