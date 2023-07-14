@@ -6,3 +6,10 @@ variable "AWS_REGION"{
 variable "cidr_blocks"{
     default = "0.0.0.0/0"
 }
+
+data "template_file" "init" {
+  template = "${file("${path.module}/init.tpl")}"
+  vars = {
+    consul_address = "${aws_instance.consul.private_ip}"
+  }
+}

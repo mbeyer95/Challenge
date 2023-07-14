@@ -14,9 +14,6 @@ provisioner "local-exec" {
     }
 }
 
-
-
-
 #user_data = data.template_file.init.rendered
 /*     #install all neccecary services for worpress
     provisioner "remote-exec"{
