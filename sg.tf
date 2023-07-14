@@ -33,3 +33,13 @@ resource "aws_security_group_rule" "devVPC_ssh_ingress_access"{
     type = "ingress"
     cidr_blocks = [var.cidr_blocks]
 }
+
+# Allow Access All (Outbound)
+resource "aws_security_group_rule" "devVPC_outbound_ingress_access"{
+    from_port = 0
+    protocol = "-1"
+    security_group_id = aws_security_group.devVPC_sg_allow_http.id
+    to_port= 0
+    type = "ingress"
+    cidr_blocks = [var.cidr_blocks]
+}
