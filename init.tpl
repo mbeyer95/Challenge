@@ -8,5 +8,8 @@ sudo dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel
 sudo dnf install mariadb105-server
 sudo systemctl start mariadb
 sudo mysql_secure_installation
+sudo yum install -y openssh-server
+sudo systemctl start sshd
+sudo systemctl enable sshd
 wget https://wordpress.org/latest.tar.gz
 tar -xzf latest.tar.gz
