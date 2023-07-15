@@ -35,15 +35,18 @@ tar -xzf latest.tar.gz
 # Move WordPress files to Apache directory
 sudo mv wordpress/* /var/www/html/
 
-# Set my passwords
-DB_PASSWORD="Yq5jk8tGXhP33kHM"
-WP_PASSWORD="JH3zLgM34gm77tGZ"
+# Set database name
+DB_NAME="Wordpress-DB"
 
 # Set my DB_User
 DB_USER="Maxey"
 
+# Set my passwords
+DB_PASSWORD="Yq5jk8tGXhP33kHM"
+WP_PASSWORD="JH3zLgM34gm77tGZ"
+
 # Create WordPress database
-mysql -u root -p -e "CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci; GRANT ALL ON wordpress.* TO 'Maxey'@'localhost' IDENTIFIED BY '$DB_PASSWORD'; FLUSH PRIVILEGES;"
+mysql -u root -p -e "CREATE DATABASE $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci; GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD'; FLUSH PRIVILEGES;"
 
 # Write Permission wp-config.php
 sudo chmod u+w /var/www/html/wp-config.php
@@ -52,9 +55,9 @@ sudo chmod u+w /var/www/html/wp-config.php
 sudo cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
 # Replace database details in wp-config.php
-sudo sed -i "s/'DB_NAME', 'wordpress'/'DB_NAME', 'wordpress'/g" /var/www/html/wp-config.php
-sudo sed -i "s/'DB_USER', 'wordpressuser'/'DB_USER', '$DB_USER'/g" /var/www/html/wp-config.php
-sudo sed -i "s/'DB_PASSWORD', 'password'/'DB_PASSWORD', '$DB_PASSWORD'/g" /var/www/html/wp-config.php
+sudo sed -i "s/database_name_here/$DB_NAME/g" /var/www/html/wp-config.php
+sudo sed -i "s/username_here/$DB_USER/g" /var/www/html/wp-config.php
+sudo sed -i "s/password_here/$DB_PASSWORD/g" /var/www/html/wp-config.php
 
-# Delete writer permission wp-config.php
-sudo chmod u+w /var/www/html/wp-config.php
+# Delete write permission wp-config.php
+sudo chmod u-w /var/www/html/wp-config.php
