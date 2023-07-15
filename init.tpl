@@ -15,12 +15,12 @@ sudo yum install -y wget php-fpm php-mysqli php-json php-devel php
 sudo systemctl start php-fpm
 sudo systemctl enable php-fpm
 
-# PHP 7.4 Installieren
+# Install PHP 7.4
 sudo amazon-linux-extras enable php7.4
 sudo yum clean metadata
 sudo yum install -y php
 
-# Apache neustarten
+# Restart Apache Server
 sudo systemctl restart httpd
 
 # Install mariadb-server and start/enable it
@@ -35,22 +35,26 @@ tar -xzf latest.tar.gz
 # Move WordPress files to Apache directory
 sudo mv wordpress/* /var/www/html/
 
+# Set my passwords
+DB_PASSWORD="Yq5jk8tGXhP33kHM"
+WP_PASSWORD="JH3zLgM34gm77tGZ"
+
+# Set my DB_User
+DB_USER="Maxey"
+
 # Create WordPress database
-# Remember to replace 'password' with your actual password
-mysql -u root -p -e "CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci; GRANT ALL ON wordpress.* TO 'wordpressuser'@'localhost' IDENTIFIED BY 'password'; FLUSH PRIVILEGES;"
+mysql -u root -p -e "CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci; GRANT ALL ON wordpress.* TO 'Maxey'@'localhost' IDENTIFIED BY '$DB_PASSWORD'; FLUSH PRIVILEGES;"
 
+# Write Permission wp-config.php
+sudo chmod u+w /var/www/html/wp-config.php
 
-
-# sudo chmod 744 /var/www/html/wp-config.php
-# sudo chmod 744 /var/www/html/wp-config-sample.php
-
-
-# Copy WordPress sample configuration file
+# Copy WordPress sample configuration file to wp-config.php
 sudo cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
 # Replace database details in wp-config.php
-# Please replace 'password' with your actual password
-sudo sed -i "s/database_name_here/wordpress/g" /var/www/html/wp-config.php
-sudo sed -i "s/username_here/wordpressuser/g" /var/www/html/wp-config.php
-sudo sed -i "s/password_here/password/g" /var/www/html/wp-config.php
+sudo sed -i "s/'DB_NAME', 'wordpress'/'DB_NAME', 'wordpress'/g" /var/www/html/wp-config.php
+sudo sed -i "s/'DB_USER', 'wordpressuser'/'DB_USER', '$DB_USER'/g" /var/www/html/wp-config.php
+sudo sed -i "s/'DB_PASSWORD', 'password'/'DB_PASSWORD', '$DB_PASSWORD'/g" /var/www/html/wp-config.php
 
+# Delete writer permission wp-config.php
+sudo chmod u+w /var/www/html/wp-config.php
