@@ -9,7 +9,7 @@ sudo systemctl start httpd
 sudo systemctl enable httpd
 
 # Install necessary PHP packages
-sudo yum install -y wget php-fpm php-mysqli php-json php-devel php
+sudo yum install -y wget php-fpm php-mysql php-json php-devel php
 
 # PHP start/enable it
 sudo systemctl start php-fpm
