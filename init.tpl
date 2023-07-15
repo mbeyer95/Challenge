@@ -9,7 +9,19 @@ sudo systemctl start httpd
 sudo systemctl enable httpd
 
 # Install necessary PHP packages
-sudo yum install -y wget php-fpm php-mysqli php-json php php-devel
+sudo yum install -y wget php-fpm php-mysqli php-json php-devel php
+
+# PHP start/enable it
+sudo systemctl start php-fpm
+sudo systemctl enable php-fpm
+
+# PHP 7.4 Installieren
+sudo amazon-linux-extras enable php7.4
+sudo yum clean metadata
+sudo yum install -y php
+
+# Apache neustarten
+sudo systemctl restart httpd
 
 # Install mariadb-server and start/enable it
 sudo yum install mariadb-server
@@ -26,6 +38,12 @@ sudo mv wordpress/* /var/www/html/
 # Create WordPress database
 # Remember to replace 'password' with your actual password
 mysql -u root -p -e "CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci; GRANT ALL ON wordpress.* TO 'wordpressuser'@'localhost' IDENTIFIED BY 'password'; FLUSH PRIVILEGES;"
+
+
+
+# sudo chmod 744 /var/www/html/wp-config.php
+# sudo chmod 744 /var/www/html/wp-config-sample.php
+
 
 # Copy WordPress sample configuration file
 sudo cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
