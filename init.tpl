@@ -24,7 +24,7 @@ sudo yum install -y php
 sudo systemctl restart httpd
 
 # Install mariadb-server and start/enable it
-sudo yum install mariadb-server
+sudo yum install -y mariadb-server
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
 
@@ -46,7 +46,8 @@ DB_PASSWORD="Yq5jk8tGXhP33kHM"
 WP_PASSWORD="JH3zLgM34gm77tGZ"
 
 # Create WordPress database
-mysql -u root -p -e "CREATE DATABASE $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci; GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD'; FLUSH PRIVILEGES;"
+mysql -u root -p -e "CREATE DATABASE \`$DB_NAME\` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci; GRANT ALL ON \`$DB_NAME\`.* TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD'; FLUSH PRIVILEGES;"
+# mysql -u root -p -e "CREATE DATABASE $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci; GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD'; FLUSH PRIVILEGES;"
 
 # Write Permission wp-config.php
 sudo chmod u+w /var/www/html/wp-config.php
