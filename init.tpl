@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Set database name
+DB_NAME="Wordpress-DB"
+# Set my DB_User
+DB_USER="Maxey"
+# Set my passwords
+DB_PASSWORD="Yq5jk8tGXhP33kHM"
+WP_PASSWORD="JH3zLgM34gm77tGZ"
+
+
 # Update packages
 sudo yum update -y
 
@@ -35,19 +44,8 @@ tar -xzf latest.tar.gz
 # Move WordPress files to Apache directory
 sudo mv wordpress/* /var/www/html/
 
-# Set database name
-DB_NAME="Wordpress-DB"
-
-# Set my DB_User
-DB_USER="Maxey"
-
-# Set my passwords
-DB_PASSWORD="Yq5jk8tGXhP33kHM"
-WP_PASSWORD="JH3zLgM34gm77tGZ"
-
 # Create WordPress database
 mysql -u root -p -e "CREATE DATABASE \`$DB_NAME\` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci; GRANT ALL ON \`$DB_NAME\`.* TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD'; FLUSH PRIVILEGES;"
-# mysql -u root -p -e "CREATE DATABASE $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci; GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD'; FLUSH PRIVILEGES;"
 
 # Write Permission wp-config.php
 sudo chmod u+w /var/www/html/wp-config.php
@@ -62,3 +60,6 @@ sudo sed -i "s/password_here/$DB_PASSWORD/g" /var/www/html/wp-config.php
 
 # Delete write permission wp-config.php
 sudo chmod u-w /var/www/html/wp-config.php
+
+# Restart Apache Server
+sudo systemctl restart httpd
